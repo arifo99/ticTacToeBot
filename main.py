@@ -73,7 +73,7 @@ def start_game():
                 clicked = True
 
             elif(event.type == pygame.KEYDOWN):
-                if(event.key == pygame.K_ESC):
+                if(event.key == pygame.K_ESCAPE):
                    escPressed = True
                 
         if activeScreen == "mainMenu":

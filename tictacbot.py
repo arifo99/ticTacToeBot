@@ -54,5 +54,5 @@ def getNextMove(board, difficulty):
             if board.board[x][y] == "":
                 return (x, y)
     else:
-        ans = startMinMax(board).findDifference(board)
+        ans = startMinMax(board)[1].findDifference(board)
         return ans

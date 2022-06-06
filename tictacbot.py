@@ -1,9 +1,17 @@
 import random
 import json
+import numpy as np
 
 from board import Board
 
 memoizedBoards={}
+def getRotations(board):
+    ans = [json.dumps(board)]
+    boardNp = np.array(board)
+    for i in range(3):
+        np.rot90(boardNp)
+        ans.append(json.dumps(boardNp.tolist()))
+    return ans
 
 def startMinMax(board):
     if board.won():
@@ -33,7 +41,11 @@ def startMinMax(board):
             nextBoardKey = json.dumps(nextBoard.board)
             
             if(memoizedBoards.get(nextBoardKey) is None):
-                memoizedBoards[nextBoardKey] = startMinMax(nextBoard)[0]
+                rotations = getRotations(nextBoard.board)
+                miniMaxVal = startMinMax(nextBoard)[0]
+                for rotationKey in rotations:
+                    memoizedBoards[rotationKey] = miniMaxVal
+                    
             nextScore = memoizedBoards[nextBoardKey]
             
             if board.whoseTurn() == 'X':
